@@ -5858,11 +5858,13 @@ class pedaGDBCommand(gdb.Command):
         else:
             cmd = arg[0]
             if cmd in pedacmd.commands:
+            	msg("found command")#debug
                 func = getattr(pedacmd, cmd)
                 try:
                     # reset memoized cache
                     reset_cache(sys.modules['__main__'])
-                    func(*arg[1:])
+                    msg("Calling Function")#debug
+                    func(*arg[1:].encode('ascii'))
                 except Exception as e:
                     if config.Option.get("debug") == "on":
                         msg("Exception: %s" %e)
