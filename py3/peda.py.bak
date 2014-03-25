@@ -248,7 +248,7 @@ class PEDA(object):
         """
         commands = "define %s\n" % cmd + code + "\nend\n"
         tmp = tmpfile()
-        tmp.write(commands.encode('utf-8'))
+        tmp.write(commands)
         tmp.flush()
         result = self.execute("source %s" % tmp.name)
         tmp.close()
@@ -4385,7 +4385,7 @@ class PEDACmd(object):
         if data is None:
             data = ""
             while True:
-                line = eval(input("patch> "))
+                line = input("patch> ")
                 if line.strip() == "": continue
                 if line == "end":
                     break
@@ -5510,7 +5510,7 @@ class PEDACmd(object):
         inst_code = ""
         # fetch instruction loop
         while True:
-            inst = eval(input("iasm|0x%x> " % address))
+            inst = input("iasm|0x%x> " % address)
             if inst == "end":
                 break
             if inst == "":
